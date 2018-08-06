@@ -10,6 +10,7 @@ export default class NewsService {
             });
     }
 
+    // Standard construction functions
     constructor(singletonToken) {
         if (_singleton !== singletonToken)
             throw new Error('Cannot instantiate directly.');
