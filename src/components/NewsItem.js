@@ -1,9 +1,20 @@
 import React from 'react'
-import NewsService from "../services/NewsService";
-import {Route} from "react-router-dom";
 
 export default class NewsItem extends React.Component {
     constructor() {
         super();
+    }
+
+    render() {
+        return (
+            <tr>
+                <td>
+                    {this.props.news.title}
+                </td>
+                <td>
+                    {this.props.news.description}
+                </td>
+            </tr>
+        )
     }
 }
