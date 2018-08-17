@@ -31,10 +31,11 @@ export default class RegisterPage extends Component {
         event.preventDefault();
         let then = this.userService.registerUser({username: this.state.email, password: this.state.password})
             .then(resp => {
-            if (resp.status != 200) {
-                    console.log("Failed to register");
+                console.log(resp);
+            if (resp.username == 200) {
+                alert("Thank you! Redirecting you to your profile page...");
                 } else {
-                    console.log("Redirect");
+                this.setState( { message: this.state.failureMessage });
             }});
     }
 

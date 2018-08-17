@@ -7,6 +7,7 @@ export default class UserService {
         return fetch(this.API_URL,
             {
                 method: 'post',
+                headers: {'content-type' :'application/json'},
                 body: JSON.stringify(user)
             }).then(function (response) {
                 return response.json();
