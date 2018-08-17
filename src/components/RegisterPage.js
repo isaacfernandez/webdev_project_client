@@ -18,7 +18,7 @@ export default class RegisterPage extends Component {
     validateForm() {
         return this.state.email.length > 0
             && this.state.password.length > 0
-            && this.state.cPassword == this.state.password;
+            && this.state.cPassword === this.state.password;
     }
 
     handleChange = event => {
@@ -32,7 +32,7 @@ export default class RegisterPage extends Component {
         let then = this.userService.registerUser({username: this.state.email, password: this.state.password})
             .then(resp => {
                 console.log(resp);
-            if (resp.username == 200) {
+            if (resp.username === 200) {
                 alert("Thank you! Redirecting you to your profile page...");
                 } else {
                 this.setState( { message: this.state.failureMessage });
