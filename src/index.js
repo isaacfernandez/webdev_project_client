@@ -12,19 +12,20 @@ import RegisterPage from "./components/RegisterPage";
 import HomePage from "./components/HomePage";
 import SearchPage from "./components/SearchPage";
 import ProfilePage from "./components/ProfilePage";
+import {history} from "./helpers/history";
 
 class App extends React.Component {
     render() {
         return (
-            <Router>
+            <Router history={history}>
                 <div>
                     <NavBar/>
                     <Route path='/search'
-                           component={SearchPage} />
+                           component={SearchPage}/>
                     <Route path='/profile'
-                           component={ProfilePage} />
+                           component={ProfilePage}/>
                     <Route path='/home'
-                           component={HomePage} />
+                           component={HomePage}/>
                     <Route path='/signup'
                            component={RegisterPage}/>
                     <Route path='/login'

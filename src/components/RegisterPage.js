@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Button, FormGroup, FormControl, ControlLabel} from "react-bootstrap";
 import UserService from "../services/UserService";
+import '../css/Register.css';
 
 export default class RegisterPage extends Component {
     constructor(props) {
@@ -9,7 +10,8 @@ export default class RegisterPage extends Component {
         this.state = {
             email: "",
             password: "",
-            cPassword:""
+            cPassword: "",
+            failureMessage: ""
         };
 
         this.userService = UserService.instance;
@@ -29,26 +31,32 @@ export default class RegisterPage extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        let then = this.userService.registerUser({username: this.state.email, password: this.state.password})
+        this.userService.registerUser({username: this.state.email, password: this.state.password})
             .then(resp => {
                 console.log(resp);
-            if (resp.username === 200) {
-                alert("Thank you! Redirecting you to your profile page...");
+                if (resp.username === this.state.email) {
+                    alert("Thank you! Redirecting you to your profile page...");
+                    this.props.history.push('/profile');
                 } else {
-                this.setState( { message: this.state.failureMessage });
-            }});
+                    this.setState({failureMessage: "Failed to register."});
+                }
+            });
     }
 
     render() {
         return (
             <div className="row">
-                <div className="Login col-6 -align-center">
+
+                <div className="Register col-6 -align-center">
+                    <h6>
+                        {this.state.failureMessage ? this.state.failureMessage: ""}
+                    </h6>
                     <form onSubmit={this.handleSubmit}>
                         <FormGroup controlId="email" bsSize="large">
                             <ControlLabel>Email</ControlLabel>
                             <FormControl
-                                autoFocus
-                                type="email"
+                                // autoFocus
+                                // type="email"
                                 value={this.state.email}
                                 onChange={this.handleChange}
                             />
