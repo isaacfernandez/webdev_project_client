@@ -6,6 +6,7 @@ export default class SearchPage extends Component {
         super(props);
 
         this.state = {
+            searchTerm:''
         };
     }
 
@@ -22,8 +23,14 @@ export default class SearchPage extends Component {
     render() {
         return (
             <div>
-                What feed to look at today?
-            </div>
-        );
+                <input
+                    autoFocus
+                    type="email"
+                    value={this.state.searchTerm}
+                    onChange={this.handleChange}>
+
+            </input>
+    </div>)
+
     }
 }

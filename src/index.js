@@ -12,6 +12,7 @@ import RegisterPage from "./components/RegisterPage";
 import HomePage from "./components/HomePage";
 import SearchPage from "./components/SearchPage";
 import ProfilePage from "./components/ProfilePage";
+import ForeignProfilePage from "./components/ForeignProfilePage";
 
 class App extends React.Component {
     render() {
@@ -21,6 +22,8 @@ class App extends React.Component {
                     <NavBar/>
                     <Route path='/search'
                            component={SearchPage} />
+                    <Route path='/user/:uid'
+                           component={ForeignProfilePage} />
                     <Route path='/profile'
                            component={ProfilePage} />
                     <Route path='/home'
