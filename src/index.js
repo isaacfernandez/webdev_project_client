@@ -9,6 +9,9 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
+import HomePage from "./components/HomePage";
+import SearchPage from "./components/SearchPage";
+import ProfilePage from "./components/ProfilePage";
 
 class App extends React.Component {
     render() {
@@ -16,6 +19,12 @@ class App extends React.Component {
             <Router>
                 <div>
                     <NavBar/>
+                    <Route path='/search'
+                           component={SearchPage} />
+                    <Route path='/profile'
+                           component={ProfilePage} />
+                    <Route path='/home'
+                           component={HomePage} />
                     <Route path='/signup'
                            component={RegisterPage}/>
                     <Route path='/login'
