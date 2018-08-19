@@ -1,36 +1,67 @@
 <div class="container-fluid">
-  <h1>Login or Register</h1>
-  <div>
-    <label>
-      Username
-    </label>
-    <input type="text"
-           class="form-control"
-           placeholder="alice"
-           [(ngModel)]="username">
-  </div>
-  <div>
-    <label>
-      Password
-    </label>
-    <input type="password"
-           class="form-control"
-           [(ngModel)]="password">
-  </div>
-  <div>
-    <label>
-      Validate Password
-    </label>
-    <input type="password"
-           class="form-control"
-           [(ngModel)]="password2">
-  </div>
-  <button class="btn btn-success"
-          (click)="register( {
-          username: username,
-          password: password,
-          password2: password2
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Login</h3>
+      <div>
+        <label>
+          Username
+        </label>
+        <input type="text"
+               class="form-control"
+               placeholder="alice"
+               [(ngModel)]="loginUsername">
+      </div>
+      <div>
+        <label>
+          Password
+        </label>
+        <input type="password"
+               class="form-control"
+               [(ngModel)]="loginPassword">
+      </div>
+      <button class="btn btn-success"
+              (click)="login( {
+          username: loginUsername,
+          password: loginPassword
           })">
-    Register
-  </button>
+        Login
+      </button>
+    </div>
+    <div class="col-6">
+      <h3>Register</h3>
+      <div>
+        <label>
+          Username
+        </label>
+        <input type="text"
+               class="form-control"
+               placeholder="alice"
+               [(ngModel)]="registerUsername">
+      </div>
+      <div>
+        <label>
+          Password
+        </label>
+        <input type="password"
+               class="form-control"
+               [(ngModel)]="registerPassword">
+      </div>
+      <div>
+        <label>
+          Validate Password
+        </label>
+        <input type="password"
+               class="form-control"
+               [(ngModel)]="registerPassword2">
+      </div>
+      <button class="btn btn-success"
+              (click)="register( {
+          username: registerUsername,
+          password: registerPassword,
+          password2: registerPassword2
+          })">
+        Register
+      </button>
+    </div>
+  </div>
 </div>

@@ -4,44 +4,57 @@ import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  templateUrl: './login-register.component.html',
+  styleUrls: ['./login-register.component.css']
 })
 export class LoginRegisterComponent implements OnInit {
-  username: '';
-  password: '';
-  password2: '';
+  registerUsername: '';
+  registerPassword: '';
+  registerPassword2: '';
+
+  loginUsername: '';
+  loginPassword: '';
+
+  user = {
+    username: String,
+    password: String,
+    password2: String
+  };
+
   constructor(private router: Router,
               private userService: UserService) {
   }
+
+  login = (user) => {
+    this.userService.login(user)
+      .then(response => {
+        if (response.error == null) {
+          return this.router.navigate(['/profile']);
+        } else {
+          alert('Failed to login. ' + response.error);
+        }
+      });
+  };
 
   register = (user) => {
     if (user.password === user.password2) {
       const newUser = {
         username: user.username,
         password: user.password,
-        firstName: String,
-        lastName: String,
-        email: String,
-        phone: String,
-        role: 'student',
-        sections: []
+        role: 'USER'
       };
-      if (user.username === 'admin' && user.password === 'admin') {
-        newUser.role = 'admin';
-      }
       this.userService.register(newUser)
-        .then(status => {
-          if (status === 200) {
+        .then(response => {
+          if (response.error == null) {
             return this.router.navigate(['/profile']);
           } else {
-            alert('Register failed. Username may already exist.');
+            alert('Register failed. ' + response.error);
           }
         });
     } else {
       alert('Passwords must match.');
     }
-  }
+  };
 
   ngOnInit() {
   }
