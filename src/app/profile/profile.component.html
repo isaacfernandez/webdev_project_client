@@ -1,3 +1,25 @@
-<p>
-  profile works!
-</p>
+<div class="container-fluid">
+  <h1>Profile</h1>
+  Empty input fields mean the server has no information available on you.
+  <input [(ngModel)]="username"
+         placeholder="username"
+         class="form-control"/>
+  <input [(ngModel)]="firstName"
+         placeholder="first name"
+         class="form-control"/>
+  <div [hidden]="id" class="private-shit">
+  <input [(ngModel)]="lastName"
+         placeholder="last name"
+         class="form-control"/>
+  <input [(ngModel)]="dateOfBirth"
+         type="date"
+         placeholder="00/00/00"
+         class="form-control"/>
+  <button (click)="update()"
+          class="btn btn-primary btn-block">
+    Update
+  </button>
+  </div>
+
+
+</div>
