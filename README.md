@@ -1,27 +1,46 @@
-# WebdevProjectClient
+# webdev_project_client
+CS4550
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.3.
+bailey.orion.kane@gmail.com
 
-## Development server
+Isaac Fernandez
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Zachary Marcus
 
-## Code scaffolding
+Bailey Kane
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+6037485892
 
-## Build
+bailey.orion.kane@gmail.com
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+email
 
-## Running unit tests
+https://github.com/isaacfernandez/webdev_project_server/ && https://github.com/isaacfernandez/webdev_project_client
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+https://github.com/isaacfernandez/webdev_project_server/wiki/Design
 
-## Running end-to-end tests
+https://github.com/isaacfernandez/webdev_project_server/wiki/Installation
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+https://cs4550-bk610-project-client.herokuapp.com/
 
-## Further help
+Own project
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Diggit - Diggit is a tool that allows users to subscribe to news feeds. The target audience is anyone interested in staying in touch with news as well as what information others are consuming, without the extra comments.
+
+UG
+
+Google Doc?
+
+https://github.com/isaacfernandez/webdev_project_server/wiki/Users
+
+https://github.com/isaacfernandez/webdev_project_server/wiki/Users
+
+https://github.com/isaacfernandez/webdev_project_server/wiki/Users
+
+https://github.com/isaacfernandez/webdev_project_server/wiki/Users
+
+https://github.com/isaacfernandez/webdev_project_server/wiki/Users
+
+https://github.com/isaacfernandez/webdev_project_server/wiki/Users
+
+Additional users?
