@@ -1,11 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {register} from "ts-node";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   url = 'https://guarded-forest-81137.herokuapp.com/api/';
-  constructor() { }
+
+  constructor() {
+  }
 
   login = (user) => {
     return fetch(this.url + 'login', {
@@ -19,6 +22,41 @@ export class UserService {
       .then(response => response.json());
   }
 
+  users = () => {
+    return fetch(this.url + 'user', {
+      method: 'get',
+      credentials: 'include',
+    })
+      .then(response => response.json());
+  }
+// /api/login/loggedin
+// get  /api/user/id/follows/100
+// post /api/user/id/follows/id
+  getFollowedUsers = (id) => {
+    return fetch(this.url + 'user/' + id + '/follows/20', {
+      method: 'get',
+      credentials: 'include'
+    })
+      .then(response => response.json())
+  }
+
+  followUser = (ourId, targetId) => {
+    return fetch(this.url + 'user/' + ourId + '/follows/' + targetId, {
+      method: 'post',
+      credentials: 'include'
+    })
+      .then(response => response.json())
+  }
+
+  unfollowUser = (from, targetId) => {
+    //delete('/api/user/:userId/follows/:followedId', unfollowUser)
+    return fetch(this.url + 'user/' + from + '/follows/' + targetId, {
+      method: 'delete',
+      credentials: 'include'
+    })
+      .then(response => response.json())
+  }
+
   register = (user) => {
     return fetch(this.url + 'register', {
       method: 'post',
@@ -30,4 +68,16 @@ export class UserService {
     })
       .then(response => response.json());
   }
+
+  loggedIn() {
+    return fetch(this.url + 'login/loggedin', {
+      method: 'get',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+      .then(response => response.json());
+  }
+
 }

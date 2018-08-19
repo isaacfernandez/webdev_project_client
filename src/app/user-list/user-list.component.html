@@ -1,3 +1,9 @@
-<p>
-  user-list works!
-</p>
+<div class="col-3">
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let user of users">
+      <a routerLink="/profile/{{user._id}}">{{user.username}}</a>
+      <span> Last Post: "To Do: Some way of pulling the post..."</span>
+      <button (click)="followUser(user._id)" class="btn-primary pull-right">Follow</button>
+    </li>
+  </ul>
+</div>
