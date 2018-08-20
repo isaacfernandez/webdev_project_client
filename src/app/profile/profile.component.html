@@ -8,9 +8,8 @@
              readonly/>
       <input [(ngModel)]="userPage.firstName"
              placeholder="first name"
-             class="form-control"
-             [readonly]="currentUser._id !== userPage._id"/>
-      <div [hidden]="userPage._id" class="private">
+             class="form-control"/>
+      <div [hidden]="idCheck" class="private">
         <input [(ngModel)]="userPage.lastName"
                placeholder="last name"
                class="form-control"/>

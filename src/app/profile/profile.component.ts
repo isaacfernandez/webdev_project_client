@@ -32,8 +32,10 @@ export class ProfileComponent implements OnInit {
     firstName: String,
     lastName: String,
     userFollowers: [],
-    _id: 0
+    _id: 1
   };
+
+  idCheck;
 
   followers = [];
 
@@ -62,6 +64,7 @@ export class ProfileComponent implements OnInit {
 
   setParams(params) {
     this.userPage._id = params['userId'];
+    this.idCheck = params['userId'];
     if (this.userPage._id !== undefined) {
       this.service.profileById(this.userPage._id)
         .then(resp => {
