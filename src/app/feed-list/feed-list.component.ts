@@ -14,9 +14,14 @@ export class FeedListComponent implements OnInit {
   }
 
   feedName;
-  newName;
+  feedSearch;
+  userId = '';
+  username = '';
   isLoggedIn = true;
-  isModerator = true;
+  isElevated = false;
+
+  newName;
+
   currentUser = {
     _id: 0,
   feedFollows: []
@@ -30,8 +35,13 @@ export class FeedListComponent implements OnInit {
       .then(feeds => this.feeds = feeds);
   }
 
-  searchFeeds(query) {
-
+  searchFeeds() {
+    if (this.feedSearch.length !== 0) {
+      this.feedService.findFeedsByName(this.feedSearch)
+        .then(feeds => this.feeds = feeds);
+    } else {
+      this.getFeeds();
+    }
   }
 
   createFeed() {
@@ -45,12 +55,18 @@ export class FeedListComponent implements OnInit {
       });
   }
 
-  deleteFeed(feedId) {
-
+  deleteFeed(feedId, feedName) {
+    if (window.confirm('Delete feed ' + feedName + '?') {
+      this.feedService.deleteFeed(feedId)
+        .then(() => {
+          getFeeds();
+        });
+    }
   }
 
   followFeed(feedId) {
-
+    this.feedService.followFeed(feedId, this.userId)
+      .then(response => {alert('Successfully followed feed')});
   }
 
   setFeeds() {
@@ -59,6 +75,19 @@ export class FeedListComponent implements OnInit {
 
   ngOnInit() {
     this.getFeeds();
+    this.userService.loggedIn()
+      .then(resp => {
+        if (resp._id !== undefined) {
+          this.isLoggedIn = true;
+          this.username = resp.username;
+          console.log('resp');
+          console.log(resp);
+          this.isModerator = (resp.role === 'MODERATOR' || resp.role === 'ADMIN');
+          console.log('isModerator: ' + this.isModerator);
+          this.isModerator = true;
+          this.userId = resp._id;
+        }
+      });
   }
 
 }
