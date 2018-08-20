@@ -102,7 +102,7 @@ export class FeedComponent implements OnInit {
           this.isFollowing = true;
           console.log(this.isFollowing);
         } else {
-          alert(response.error);
+          this.isFollowing = false;
         }
       });
   }

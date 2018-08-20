@@ -110,7 +110,7 @@ export class UserService {
         'content-type': 'application/json'
       },
       body: JSON.stringify(user)
-    })
+    });
   }
 
   getLastPost(id: any) {
@@ -124,6 +124,13 @@ export class UserService {
 
   searchUsers(search) {
     return fetch(this.url + 'user/search/' + search, {
+      method: 'get',
+      credentials: 'include'
+    }).then(res => res.json());
+  }
+
+  getPostsByUser(userId) {
+    return fetch(this.url + 'post/user/' + userId, {
       method: 'get',
       credentials: 'include'
     }).then(res => res.json());

@@ -32,4 +32,21 @@
       </li>
     </ul>
   </div>
+  <br>
+  <div>
+    <ul class="list-group">
+      <h3>
+        Posts by user:
+      </h3>
+      <li class="list-group-item"
+          *ngFor="let post of posts">
+        <a href="{{post.postLink}}">
+          <b>
+            {{post.postTitle}}
+          </b>
+        </a>
+      </li>
+    </ul>
+  </div>
+
 </div>

@@ -39,6 +39,11 @@ export class ProfileComponent implements OnInit {
 
   followers = [];
 
+  posts = [{
+    postTitle: String,
+    postLink: String
+  }];
+
   // username;
   // firstName;
   // lastName;
@@ -87,12 +92,23 @@ export class ProfileComponent implements OnInit {
     return this.userService.loggedIn();
   }
 
+  getUserPosts() {
+    return this.userService.getPostsByUser(this.userPage._id);
+  }
+
   ngOnInit() {
     this.getCurrentUser()
       .then(response => {
         if (response.error == null) {
           this.currentUser = response;
         }
+      })
+      .then(() => {
+        this.getUserPosts()
+          .then(response => {
+            console.log(response);
+            this.posts = response.json();
+          });
       });
   }
 

@@ -4,7 +4,7 @@
       <b>{{feed.feedName}}</b>
       <br/>
       <b>{{feedFollowersCount}}</b> followers
-      <button *ngIf="isLoggedIn && !isFollowing"
+      <button *ngIf="isLoggedIn && (isFollowing === false)"
               (click)="followFeed()"
               class="btn btn-secondary float-right">
         Follow
