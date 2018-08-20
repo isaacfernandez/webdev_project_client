@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from "../services/user.service";
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-admin',
@@ -11,6 +11,9 @@ export class AdminComponent implements OnInit {
     this.reloadUsers();
   }
 
+  currentUser = {
+    role: ''
+  };
   users = [];
 
   deleteUser(id) {
@@ -29,7 +32,17 @@ export class AdminComponent implements OnInit {
     this.service.users().then(res => this.users = res );
   }
 
+  getCurrentUser() {
+    return this.service.loggedIn();
+  }
+
   ngOnInit() {
+    this.getCurrentUser()
+      .then(response => {
+        if (response.error == null) {
+          this.currentUser = response;
+        }
+      });
   }
 
 }
