@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from "../services/user.service";
-import {ProfileService} from "../services/profile.service";
-import {post} from "../../../node_modules/@types/selenium-webdriver/http";
+import {UserService} from '../services/user.service';
+import {ProfileService} from '../services/profile.service';
+import {post} from '../../../node_modules/@types/selenium-webdriver/http';
 
 @Component({
   selector: 'app-follows-list',
@@ -19,6 +19,7 @@ export class UserFollowsComponent implements OnInit {
       .then(resp => {
         var selfId = resp._id;
         if (selfId == undefined) {
+          console.log('Not logged in, go home');
           return;
         }
         this.myId = selfId;
@@ -28,8 +29,13 @@ export class UserFollowsComponent implements OnInit {
               this.userIdToUser(ret[u].followed);
             }
           }).then(cont => {
-            console.log(this.users);
-        });
+          console.log(this.users);
+        })
+          .then(res => {
+            for (var i = 0; i < this.users.length; i++) {
+              this.users[i].lastPost = this.getLastUserPost(this.users[i]._id);
+            }
+          });
       });
   }
 
@@ -37,7 +43,8 @@ export class UserFollowsComponent implements OnInit {
     let olduser;
     this.profileService.profileById(id).then(res => {
       olduser = res;
-      return this.getLastUserPost(res)})
+      return this.getLastUserPost(res);
+    })
       .then(post => {
         if (post !== null) {
           olduser.postTitle = post.postTitle;
@@ -48,7 +55,7 @@ export class UserFollowsComponent implements OnInit {
         }
         this.users.push(olduser);
         console.log(olduser);
-      })
+      });
 
   }
 
@@ -61,7 +68,7 @@ export class UserFollowsComponent implements OnInit {
               this.userIdToUser(ret[u].followed);
             }
           });
-      })
+      });
   }
 
   ngOnInit() {
@@ -70,7 +77,8 @@ export class UserFollowsComponent implements OnInit {
   getLastUserPost(user) {
     var _id = user._id;
     return this.service.getLastPost(_id).then(res => {
-      return res
+      console.log(res);
+      return res;
     }).then(posts => {
       console.log(posts);
       if (posts.length == 0) return null;
