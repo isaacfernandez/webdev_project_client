@@ -27,6 +27,7 @@ export class FeedComponent implements OnInit {
     role: ''
   };
   feedId;
+  feedFollowersCount = 0;
   feed = {
     _id: 0,
     feedName: String,
@@ -47,6 +48,10 @@ export class FeedComponent implements OnInit {
 
   getCurrentUser() {
     return this.userService.loggedIn();
+  }
+
+  getFeedFollowersCount() {
+    return this.feedService.findFeedFollowerCount(this.feedId);
   }
 
   getPostIds() {
@@ -150,6 +155,12 @@ export class FeedComponent implements OnInit {
         console.log(this.isLoggedIn);
         console.log(this.isModerator);
         console.log(this.isFollowing);
+      });
+    this.getFeedFollowersCount()
+      .then(response => {
+        if (response.error == null) {
+          this.feedFollowersCount = response;
+        }
       });
   }
 }

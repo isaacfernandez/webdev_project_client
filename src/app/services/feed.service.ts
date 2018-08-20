@@ -129,4 +129,21 @@ export class FeedService {
         }
       });
   }
+
+  findFeedFollowerCount(feedId) {
+    return fetch(this.url + 'feed/' + feedId + '/follows/count', {
+      method: 'get',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return {error: 'Failed to return feed followers.'};
+        }
+      });
+  }
 }
