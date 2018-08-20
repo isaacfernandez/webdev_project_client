@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ProfileService} from "../services/profile.service";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-profile',
@@ -11,6 +12,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private service: ProfileService,
+    private userService: UserService,
     private route: ActivatedRoute) {
     this.route.params.subscribe(
       params => this.setParams(params));
@@ -22,6 +24,23 @@ export class ProfileComponent implements OnInit {
   lastName;
   id;
   dateOfBirth: Date;
+
+  update() {
+    var update_obj = {
+      'username': this.username,
+      'firstName': this.firstName || "Simon",
+      'lastName': this.lastName || "Bolivar"
+    }
+    this.userService.loggedIn()
+      .then(resp => {
+        if (resp._id !== undefined) {
+          return resp._id;
+        }
+      }).then( id => {
+        console.log(id);
+        this.userService.updateUser(update_obj, id);
+    });
+  }
 
   setParams(params) {
     this.id = params['userId'];

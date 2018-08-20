@@ -109,8 +109,15 @@ export class UserService {
     return fetch(this.url + 'post/user/' + id, {
       method: 'get',
       credentials: 'include',
-    }).then( res => {
+    }).then(res => {
       return res.json()
     });
+  }
+
+  searchUsers(search) {
+    return fetch(this.url + 'user/search/' + search, {
+      method: 'get',
+      credentials: 'include'
+    }).then(res => res.json());
   }
 }

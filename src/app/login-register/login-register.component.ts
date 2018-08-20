@@ -48,7 +48,8 @@ export class LoginRegisterComponent implements OnInit {
       this.userService.register(newUser)
         .then(response => {
           if (response.error == null) {
-            return this.router.navigate(['/profile']);
+            return this.router.navigate(['/profile'])
+              .then( () =>window.location.reload());
           } else {
             alert('Register failed. ' + response.error);
           }
