@@ -1,48 +1,58 @@
-<div class="col-6 pull-left">
+<div class="container-fluid ">
   <h2>Feeds</h2>
   <div class="row">
-    <div class="col" [hidden]="!isElevated">
-      <div>
+
+
+    <form class="form-line" [hidden]="!isElevated">
+      <div class="form-group">
         <input placeholder="Feed Name"
+               name="zzz"
                [(ngModel)]="feedName"
-               class="form-control">
-      </div>
-      <div class="col">
-        <button class="btn btn-primary float-right"
+               class="form-control"/>
+        <button class="btn btn-primary form-control"
                 (click)="createFeed()">
           Create Feed
         </button>
       </div>
-    </div>
-    <div class="col">
-      <input placeholder="Search For Feeds"
-             [(ngModel)]="feedSearch"
-             class="form-control">
-    </div>
-    <div class="col">
-      <button class="btn btn-primary float-right"
-              (click)="searchFeeds()">
-        Search For Feeds
-      </button>
-    </div>
-  </div>
+    </form>
 
-  <ul class="list-group">
-    <li class="list-group-item"
-        *ngFor="let feed of feeds">
-      <a routerLink="/feed/{{feed._id}}">
-        {{feed.feedName}}
-      </a>
-      <button (click)="followFeed(feed._id)"
-              class="btn btn-primary pull-right">
-        Follow
-      </button>
-      <div [hidden]="!isElevated">
-        <button (click)="deleteFeed(feed._id, feed.feedName)"
-                class="btn btn-danger pull-right">
-          Delete Feed
+    <form class="form-line">
+      <div class="form-group">
+        <input placeholder="Search For Feeds"
+               name="zzz"
+               [(ngModel)]="feedSearch"
+               class="form-control">
+        <button class="btn form-control btn-primary"
+                (click)="searchFeeds()">
+          Search For Feeds
         </button>
       </div>
-    </li>
-  </ul>
+    </form>
+
+    <ul class="list-group">
+      <li class="list-group-item"
+          *ngFor="let feed of feeds">
+        <a routerLink="/feed/{{feed._id}}">
+          {{feed.feedName}}
+        </a>
+        <form class="form-inline pull-right">
+          <div class="form-group">
+            <button (click)="followFeed(feed._id)"
+                    class="form-control btn btn-primary pull-right">
+              Follow
+            </button>
+          </div>
+          <div class="form-group">
+            <div [hidden]="!isElevated">
+              <button (click)="deleteFeed(feed._id, feed.feedName)"
+                      class="form-control btn btn-danger pull-right">
+                Delete Feed
+              </button>
+            </div>
+          </div>
+        </form>
+      </li>
+    </ul>
+  </div>
+
 </div>

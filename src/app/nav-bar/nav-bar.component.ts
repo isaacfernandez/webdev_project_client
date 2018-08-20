@@ -18,6 +18,7 @@ export class NavBarComponent implements OnInit {
 
   loggedIn = false;
   username = '';
+  role = '';
   admin = false;
 
   setParams(params) {
@@ -28,6 +29,8 @@ export class NavBarComponent implements OnInit {
           this.loggedIn = true;
           this.username = resp.username;
           this.admin = (resp.role === 'ADMIN');
+          var display = resp.role.toLowerCase();
+          this.role = display.charAt(0).toUpperCase() + display.slice(1);
         }
       });
   }
