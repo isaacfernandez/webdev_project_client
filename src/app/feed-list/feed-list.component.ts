@@ -13,6 +13,7 @@ export class FeedListComponent implements OnInit {
               private feedService: FeedService) {
   }
 
+  feedName;
   newName;
   isLoggedIn = true;
   isModerator = true;
@@ -21,17 +22,27 @@ export class FeedListComponent implements OnInit {
   feedFollows: []
   };
   feeds = [
-
   ];
-  feedLimit = 10;
+  feedLimit = '10';
 
+  getFeeds() {
+    this.feedService.findFeeds(this.feedLimit)
+      .then(feeds => this.feeds = feeds);
+  }
 
   searchFeeds(query) {
 
   }
 
   createFeed() {
-
+    console.log('feedName');
+    console.log(this.feedName);
+    this.feedService.createFeed(this.feedName)
+      .then(feed => {
+        console.log('hi');
+        console.log(feed);
+        this.feeds.push(feed);
+      });
   }
 
   deleteFeed(feedId) {
@@ -47,6 +58,7 @@ export class FeedListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getFeeds();
   }
 
 }

@@ -1,13 +1,25 @@
-<div class="col-3">
+<div class="col-6 pull-left">
+  <h2>Feeds</h2>
+  <div class="row">
+    <div class="col">
+      <input placeholder="Feed Name"
+             [(ngModel)]="feedName"
+             class="form-control">
+    </div>
+    <div class="col">
+      <button class="btn btn-primary float-right"
+              (click)="createFeed()">
+        Create Feed
+      </button>
+    </div>
+  </div>
+
   <ul class="list-group">
     <li class="list-group-item"
         *ngFor="let feed of feeds">
       <a routerLink="/feed/{{feed._id}}">
         {{feed.feedName}}
       </a>
-      <span>
-        Feed info...
-      </span>
       <button (click)="followFeed(feed._id)"
               class="btn-primary pull-right">
         Follow
