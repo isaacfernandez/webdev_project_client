@@ -19,9 +19,9 @@ export class FeedComponent implements OnInit {
 
   newLink;
   newTitle;
-  isLoggedIn = true;
-  isModerator = true;
-  isFollowing = true;
+  isLoggedIn = false;
+  isModerator = false;
+  isFollowing = false;
   currentUser = {
     _id: 0,
     role: '',
@@ -92,6 +92,14 @@ export class FeedComponent implements OnInit {
   getPosts(postIds) {
     // console.log(postIds);
     return this.feedService.findPostsByIds(postIds);
+  }
+
+  isUserFollowingFeed() {
+    return this.feedService.isUserFollowingFeed(this.currentUser._id, this.feedId)
+      .then(response => {
+        console.log(response);
+        this.isFollowing = response;
+      });
   }
 
   followFeed() {
@@ -173,12 +181,7 @@ export class FeedComponent implements OnInit {
           console.log(this.currentUser);
           this.isLoggedIn = true;
           this.isModerator = (this.currentUser.role !== 'USER');
-          // this.isFollowing = ?
-        } else {
-          this.currentUser = null;
-          this.isLoggedIn = false;
-          this.isModerator = false;
-          this.isFollowing = false;
+          this.isUserFollowingFeed();
         }
 
         console.log(this.currentUser);

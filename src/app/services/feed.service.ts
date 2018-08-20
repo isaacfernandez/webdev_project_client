@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {P} from '@angular/core/src/render3';
 
 @Injectable({
   providedIn: 'root'
@@ -236,5 +237,19 @@ export class FeedService {
           return {error: 'Failed to delete feed ' + feedId};
         }
       });
+  }
+
+  isUserFollowingFeed(userId, feedId) {
+    return fetch(this.url + 'feed/' + userId + '/isFollowing/' + feedId, {
+      method: 'get',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+      .then(response => {
+          return response.json();
+        }
+      );
   }
 }
