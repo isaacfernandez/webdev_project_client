@@ -46,13 +46,14 @@ export class FeedService {
 
   findPostsByIds(postIds) {
     const posts = [];
+    // console.log(postIds);
     postIds.forEach(id => {
       this.findPostById(id)
         .then(post => {
           posts.push(post);
         });
-      ;
     });
+    // console.log(posts);
     return posts;
   }
 
@@ -74,11 +75,23 @@ export class FeedService {
       });
   }
 
-  findInternalPostsById(feedName, postLimit) {
+  findInternalPostsByName(feedName, postLimit) {
     return fetch(this.url + 'feed/' + feedName + '/internal/' + postLimit, {
-
+      method: 'get',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
       }
-    );
+    })
+      .then(response => {
+        if (response.status === 200) {
+          // console.log(response);
+          // console.log(response.json());
+          return response.json();
+        } else {
+          return {error: 'Failed to find internal posts for feed ' + feedName};
+        }
+      });
   }
 
   findExternalPostsByName(feedName, postLimit) {
@@ -91,10 +104,14 @@ export class FeedService {
     })
       .then(response => {
         if (response.status === 200) {
+          // console.log(response);
+          // console.log(response.json());
           return response.json();
         } else {
           return {error: 'Failed to find external posts for feed ' + feedName};
         }
       });
   }
+
+  
 }

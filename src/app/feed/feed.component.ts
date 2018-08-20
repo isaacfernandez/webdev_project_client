@@ -23,7 +23,8 @@ export class FeedComponent implements OnInit {
   isModerator = true;
   isFollowing = true;
   currentUser = {
-    _id: 0
+    _id: 0,
+    role: ''
   };
   feedId;
   feed = {
@@ -45,22 +46,44 @@ export class FeedComponent implements OnInit {
   }
 
   getCurrentUser() {
-    // this.userService.
-    // SET isLoggedIn and isModerator and isFollowing
-    return null;
+    return this.userService.loggedIn();
   }
 
   getPostIds() {
-    const postIds = [];
-    postIds.concat(this.feedService.findInternalPostsById(this.feed.feedName,
-      this.postLimit));
-    postIds.concat(this.feedService.findExternalPostsByName(this.feed.feedName,
-      this.postLimit));
-    return postIds;
+    let postIds = [];
+    return this.feedService.findInternalPostsByName(this.feed.feedName,
+      this.postLimit)
+      .then(ids => {
+        // console.log(ids);
+        // console.log(postIds);
+        postIds = postIds.concat(ids);
+        // console.log(postIds);
+        return postIds;
+      })
+      .then(() => {
+        // console.log(postIds);
+        return this.feedService.findExternalPostsByName(this.feed.feedName,
+          this.postLimit)
+          .then(ids => {
+            // console.log(ids);
+            // console.log(postIds);
+            postIds = postIds.concat(ids);
+            // console.log(postIds);
+            this.postIds = postIds;
+            return postIds;
+          });
+      });
+    // .then(ids => {
+    //   console.log(ids);
+    //   postIds.push(ids.);
+    //   console.log(postIds);
+    // });
+    // postIds.concat(this.feedService.findExternalPostsByName(this.feed.feedName,
+    //   this.postLimit));
   }
 
   getPosts(postIds) {
-    postIds.splice(this.postLimit);
+    // console.log(postIds);
     return this.feedService.findPostsByIds(postIds);
   }
 
@@ -91,13 +114,29 @@ export class FeedComponent implements OnInit {
         if (response.error == null) {
           this.feed = response;
           // console.log(this.feed);
-          this.postIds = this.getPostIds();
-          this.posts = this.getPosts(this.postIds);
+          this.getPostIds()
+            .then((ids) => {
+              this.postIds = ids;
+              // console.log(ids);
+              this.posts = this.getPosts(ids);
+            });
         } else {
           alert(response.error);
         }
       });
-    // this.getCurrentUser()
-    //   .then(response => this.currentUser = response);
+    this.getCurrentUser()
+      .then(response => {
+        if (response.error == null) {
+          this.currentUser = response;
+          this.isLoggedIn = true;
+          this.isModerator = (this.currentUser.role !== 'USER');
+          // this.isFollowing = false;
+        } else {
+          this.currentUser = null;
+          this.isLoggedIn = false;
+          this.isModerator = false;
+          this.isFollowing = false;
+        }
+      });
   }
 }

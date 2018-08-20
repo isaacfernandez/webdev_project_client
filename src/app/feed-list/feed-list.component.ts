@@ -26,7 +26,7 @@ export class FeedListComponent implements OnInit {
   feedLimit = 10;
 
 
-  searchFeeds() {
+  searchFeeds(query) {
 
   }
 
@@ -34,11 +34,11 @@ export class FeedListComponent implements OnInit {
 
   }
 
-  deleteFeed() {
+  deleteFeed(feedId) {
 
   }
 
-  followFeed() {
+  followFeed(feedId) {
 
   }
 
