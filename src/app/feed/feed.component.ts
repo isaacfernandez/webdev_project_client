@@ -114,7 +114,8 @@ export class FeedComponent implements OnInit {
           } else {
             alert(response.error);
           }
-        });
+        })
+        .then(this.populatePosts);
 
     } else {
       this.feedService.deleteInternalPost(postId)
@@ -124,7 +125,8 @@ export class FeedComponent implements OnInit {
           } else {
             alert(response.error);
           }
-        });
+        })
+        .then(this.populatePosts);
     }
   }
 
@@ -140,10 +142,11 @@ export class FeedComponent implements OnInit {
         } else {
           alert(response.error);
         }
-      });
+      })
+      .then(this.populatePosts);
   }
 
-  ngOnInit() {
+  populatePosts() {
     this.getFeed()
       .then(response => {
         if (response.error == null) {
@@ -159,6 +162,10 @@ export class FeedComponent implements OnInit {
           alert(response.error);
         }
       });
+  }
+
+  ngOnInit() {
+    this.populatePosts();
     this.getCurrentUser()
       .then(response => {
         if (response.error == null) {
