@@ -10,7 +10,7 @@
     </button>
   </li>
   <li *ngIf="isModerator"
-      class="list-group=item">
+      class="list-group-item">
     <div class="row">
       Create Post:
     </div>
@@ -36,15 +36,17 @@
   </li>
   <li *ngFor="let post of posts"
       class="list-group-item">
-    <a href="{{post.postLink}}">
-      <b>
-        {{post.postTitle}}
-      </b>
-    </a>
-    <button *ngIf="isLoggedIn && isModerator"
-            (click)="deletePost()"
-            class="btn btn-primary float-right">
-      Delete
-    </button>
+    <div class="row">
+      <a href="{{post.postLink}}">
+        <b>
+          {{post.postTitle}}
+        </b>
+      </a>
+      <button *ngIf="isLoggedIn && isModerator"
+              (click)="deletePost()"
+              class="btn btn-primary float-right">
+        Delete
+      </button>
+    </div>
   </li>
 </ul>

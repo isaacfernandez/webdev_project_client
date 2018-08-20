@@ -37,6 +37,8 @@ export class FeedComponent implements OnInit {
     postTitle: String,
     postLink: String
   }];
+  postIds = [];
+  postLimit = 10;
 
   getFeed() {
     return this.feedService.findFeedById(this.feedId);
@@ -48,8 +50,18 @@ export class FeedComponent implements OnInit {
     return null;
   }
 
-  setPostsByIds(postIds) {
-    this.posts = this.feedService.findPostsByIds(postIds);
+  getPostIds() {
+    const postIds = [];
+    postIds.concat(this.feedService.findInternalPostsById(this.feed.feedName,
+      this.postLimit));
+    postIds.concat(this.feedService.findExternalPostsByName(this.feed.feedName,
+      this.postLimit));
+    return postIds;
+  }
+
+  getPosts(postIds) {
+    postIds.splice(this.postLimit);
+    return this.feedService.findPostsByIds(postIds);
   }
 
   followFeed() {
@@ -62,7 +74,7 @@ export class FeedComponent implements OnInit {
     const post = {
       postTitle: title,
       postLink: link
-    }
+    };
     this.feedService.createPostForFeed(this.feed._id, post)
       .then(response => {
         if (response.error == null) {
@@ -78,13 +90,12 @@ export class FeedComponent implements OnInit {
       .then(response => {
         if (response.error == null) {
           this.feed = response;
-          console.log(this.feed);
+          // console.log(this.feed);
+          this.postIds = this.getPostIds();
+          this.posts = this.getPosts(this.postIds);
         } else {
           alert(response.error);
         }
-      })
-      .then(() => {
-        this.setPostsByIds(this.feed.externalPosts);
       });
     // this.getCurrentUser()
     //   .then(response => this.currentUser = response);

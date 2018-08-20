@@ -1,3 +1,17 @@
-<p>
-  feed-list works!
-</p>
+<div class="col-3">
+  <ul class="list-group">
+    <li class="list-group-item"
+        *ngFor="let feed of feeds">
+      <a routerLink="/feed/{{feed._id}}">
+        {{feed.feedName}}
+      </a>
+      <span>
+        Feed info...
+      </span>
+      <button (click)="followUser(user._id)"
+              class="btn-primary pull-right">
+        Follow
+      </button>
+    </li>
+  </ul>
+</div>

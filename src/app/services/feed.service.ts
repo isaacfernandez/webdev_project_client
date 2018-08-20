@@ -10,7 +10,7 @@ export class FeedService {
   }
 
   findFeedById(feedId) {
-    console.log(feedId);
+    // console.log(feedId);
     return fetch(this.url + 'feed/' + feedId, {
       method: 'get',
       credentials: 'include',
@@ -70,6 +70,30 @@ export class FeedService {
           return response.json();
         } else {
           return {error: 'Post submission failed.'};
+        }
+      });
+  }
+
+  findInternalPostsById(feedName, postLimit) {
+    return fetch(this.url + 'feed/' + feedName + '/internal/' + postLimit, {
+
+      }
+    );
+  }
+
+  findExternalPostsByName(feedName, postLimit) {
+    return fetch(this.url + 'feed/' + feedName + '/external/' + postLimit, {
+      method: 'get',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return {error: 'Failed to find external posts for feed ' + feedName};
         }
       });
   }
