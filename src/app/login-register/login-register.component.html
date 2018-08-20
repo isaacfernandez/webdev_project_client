@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6" [hidden]="displayRegister">
       <h3>Login</h3>
       <div>
         <label>
@@ -28,8 +28,14 @@
           Login
         </button>
       </div>
+      <div>
+        <button class="btn btn-info"
+                (click)="toggle()">
+          No Account? Register Here!
+        </button>
+      </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" [hidden]="!displayRegister">
       <h3>Register</h3>
       <div>
         <label>
@@ -64,6 +70,12 @@
           password2: registerPassword2
           })">
           Register
+        </button>
+      </div>
+      <div>
+        <button class="btn btn-info"
+                (click)="toggle()">
+          Have A Account? Login Here!
         </button>
       </div>
     </div>

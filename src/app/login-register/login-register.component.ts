@@ -14,6 +14,7 @@ export class LoginRegisterComponent implements OnInit {
 
   loginUsername: '';
   loginPassword: '';
+  displayRegister;
 
   user = {
     username: String,
@@ -57,6 +58,11 @@ export class LoginRegisterComponent implements OnInit {
     }
   };
 
+  toggle = () => {
+    this.displayRegister = !this.displayRegister;
+  };
+
   ngOnInit() {
+    this.displayRegister = false;
   }
 }
