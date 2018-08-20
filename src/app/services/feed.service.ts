@@ -113,5 +113,20 @@ export class FeedService {
       });
   }
 
-  
+  followFeed(feedId, userId) {
+    return fetch(this.url + 'feed/' + feedId + '/follows/' + userId, {
+      method: 'post',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return {error: 'Failed to follow feed.'};
+        }
+      });
+  }
 }

@@ -88,6 +88,14 @@ export class FeedComponent implements OnInit {
   }
 
   followFeed() {
+    this.feedService.followFeed(this.feed._id, this.currentUser._id)
+      .then(response => {
+        if (response.error == null) {
+          alert('Feed followed successfully.');
+        } else {
+          alert(response.error);
+        }
+      });
   }
 
   deletePost() {
