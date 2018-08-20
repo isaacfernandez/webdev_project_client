@@ -56,10 +56,10 @@ export class FeedListComponent implements OnInit {
   }
 
   deleteFeed(feedId, feedName) {
-    if (window.confirm('Delete feed ' + feedName + '?') {
+    if (window.confirm('Delete feed ' + feedName + '?')) {
       this.feedService.deleteFeed(feedId)
         .then(() => {
-          getFeeds();
+          this.getFeeds();
         });
     }
   }
@@ -82,9 +82,7 @@ export class FeedListComponent implements OnInit {
           this.username = resp.username;
           console.log('resp');
           console.log(resp);
-          this.isModerator = (resp.role === 'MODERATOR' || resp.role === 'ADMIN');
-          console.log('isModerator: ' + this.isModerator);
-          this.isModerator = true;
+          this.isElevated = (resp.role === 'MODERATOR' || resp.role === 'ADMIN');
           this.userId = resp._id;
         }
       });
