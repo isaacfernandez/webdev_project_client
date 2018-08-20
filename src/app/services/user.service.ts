@@ -106,8 +106,8 @@ export class UserService {
   }
 
   getLastPost(id: any) {
-    return fetch(this.url + '/post/user/' + id, {
-      method: 'put',
+    return fetch(this.url + 'post/user/' + id, {
+      method: 'get',
       credentials: 'include',
     }).then( res => {
       return res.json()
