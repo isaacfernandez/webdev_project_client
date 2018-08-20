@@ -12,28 +12,28 @@
   </li>
   <li *ngIf="isModerator"
       class="list-group-item">
-    <div class="row">
-      Create Post:
-    </div>
+    <h4 class="mx-auto">Create Post</h4>
     <!--<br/>-->
-    <div class="row">
-      <div class="col">
+    <form class="form-inline">
+      <div class="form-group">
         <input placeholder="Title"
+               name="create_post"
                [(ngModel)]="newTitle"
                class="form-control">
       </div>
-      <div class="col">
+      <div class="form-group">
         <input placeholder="URL"
+               name="create_post"
                [(ngModel)]="newLink"
                class="form-control">
       </div>
-      <div class="col">
-        <button class="btn btn-primary float-right"
+      <div class="form-group row">
+        <button class=" btn float-right btn-primary"
                 (click)="createPost(newTitle, newLink)">
           Create
         </button>
       </div>
-    </div>
+    </form>
   </li>
   <li *ngFor="let post of posts"
       class="list-group-item">
