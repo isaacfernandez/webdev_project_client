@@ -9,8 +9,8 @@
       <input [(ngModel)]="userPage.firstName"
              placeholder="first name"
              class="form-control"
-             [readonly]="currentUser._id !== userPage.userId"/>
-      <div [hidden]="userPage.userId" class="private-shit">
+             [readonly]="currentUser._id !== userPage._id"/>
+      <div [hidden]="userPage._id" class="private">
         <input [(ngModel)]="userPage.lastName"
                placeholder="last name"
                class="form-control"/>
