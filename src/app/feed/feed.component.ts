@@ -137,6 +137,11 @@ export class FeedComponent implements OnInit {
           this.isModerator = false;
           this.isFollowing = false;
         }
+
+        console.log(this.currentUser);
+        console.log(this.isLoggedIn);
+        console.log(this.isModerator);
+        console.log(this.isFollowing);
       });
   }
 }
