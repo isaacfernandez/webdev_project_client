@@ -181,4 +181,21 @@ export class FeedService {
         }
       });
   }
+
+  findFeedsByName(query) {
+    return fetch(this.url + 'feed/search/' + query, {
+      method: 'get',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return {error: 'Failed to search for ' + query};
+        }
+      });
+  }
 }
