@@ -129,4 +129,56 @@ export class FeedService {
         }
       });
   }
+
+  deleteInternalPost(postId) {
+    return fetch(this.url + 'post/internal/' + postId, {
+      method: 'delete',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return;
+        } else {
+          return {error: 'Failed delete internal post ' + postId};
+        }
+      });
+  }
+
+  deleteExternalPost(postId) {
+    return fetch(this.url + 'post/external/' + postId, {
+      method: 'delete',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return;
+        } else {
+          return {error: 'Failed delete internal post ' + postId};
+        }
+      });
+  }
+
+
+  findFeedFollowerCount(feedId) {
+    return fetch(this.url + 'feed/' + feedId + '/follows/count', {
+      method: 'get',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return {error: 'Failed to return feed followers.'};
+        }
+      });
+  }
 }
