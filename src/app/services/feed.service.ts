@@ -198,4 +198,21 @@ export class FeedService {
         }
       });
   }
+
+  deleteFeed(feedId) {
+    return fetch(this.url + 'feed/' + feedId, {
+      method: 'delete',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return;
+        } else {
+          return {error: 'Failed to delete feed ' + postId};
+        }
+      });
+  }
 }
