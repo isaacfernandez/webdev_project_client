@@ -118,7 +118,7 @@ export class UserService {
       method: 'get',
       credentials: 'include',
     }).then(res => {
-      return res.json()
+      return res.json();
     });
   }
 

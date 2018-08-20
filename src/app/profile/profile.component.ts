@@ -107,7 +107,7 @@ export class ProfileComponent implements OnInit {
         this.getUserPosts()
           .then(response => {
             console.log(response);
-            this.posts = response.json();
+            this.posts = response;
           });
       });
   }

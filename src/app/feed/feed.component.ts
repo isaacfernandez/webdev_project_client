@@ -97,10 +97,10 @@ export class FeedComponent implements OnInit {
   isUserFollowingFeed() {
     this.feedService.isUserFollowingFeed(this.currentUser._id, this.feedId)
       .then(response => {
-        console.log(response);
+        // console.log(response);
         if (response.error == null) {
           this.isFollowing = true;
-          console.log(this.isFollowing);
+          // console.log(this.isFollowing);
         } else {
           this.isFollowing = false;
         }
@@ -183,16 +183,16 @@ export class FeedComponent implements OnInit {
       .then(response => {
         if (response.error == null) {
           this.currentUser = response;
-          console.log(this.currentUser);
+          // console.log(this.currentUser);
           this.isLoggedIn = true;
           this.isModerator = (this.currentUser.role !== 'USER');
           this.isUserFollowingFeed();
         }
 
-        console.log(this.currentUser);
-        console.log(this.isLoggedIn);
-        console.log(this.isModerator);
-        console.log(this.isFollowing);
+        // console.log(this.currentUser);
+        // console.log(this.isLoggedIn);
+        // console.log(this.isModerator);
+        // console.log(this.isFollowing);
       });
     this.getFeedFollowersCount()
       .then(response => {

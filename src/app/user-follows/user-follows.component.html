@@ -1,5 +1,5 @@
 <div>
-  <h3> Users you're following:</h3>
+  <h3>Followed Users</h3>
   <ul class="list-group">
     <li class="list-group-item" *ngFor="let user of users">
       <a class="col-1" routerLink="/profile/{{user.followed}}">{{user.username}}</a>
