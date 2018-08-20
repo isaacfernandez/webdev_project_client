@@ -9,6 +9,36 @@ export class FeedService {
   constructor() {
   }
 
+  findFeeds(quantity) {
+    return fetch(this.url + 'feeds/' + quantity, {
+      method: 'get',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      }
+    }).then(response => {
+      console.log('response');
+      console.log(response);
+      return response.json();
+    });
+  }
+
+  createFeed(feedName) {
+    console.log('in createFeed: ' + feedName);
+    return fetch(this.url + 'feed', {
+      method: 'post',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({feedName: feedName})
+    }).then(response => {
+      console.log('createFeed response');
+      console.log(response);
+      return response.json();
+    });
+  }
+
   findFeedById(feedId) {
     // console.log(feedId);
     return fetch(this.url + 'feed/' + feedId, {
