@@ -24,7 +24,8 @@ export class FeedComponent implements OnInit {
   isFollowing = true;
   currentUser = {
     _id: 0,
-    role: ''
+    role: '',
+    feedFollows: []
   };
   feedId;
   feedFollowersCount = 0;
@@ -162,9 +163,10 @@ export class FeedComponent implements OnInit {
       .then(response => {
         if (response.error == null) {
           this.currentUser = response;
+          console.log(this.currentUser);
           this.isLoggedIn = true;
           this.isModerator = (this.currentUser.role !== 'USER');
-          // this.isFollowing = false;
+          // this.isFollowing = ?
         } else {
           this.currentUser = null;
           this.isLoggedIn = false;
