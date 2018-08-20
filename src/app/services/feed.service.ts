@@ -237,4 +237,20 @@ export class FeedService {
         }
       });
   }
+
+  createFeed(feedName) {
+    console.log('in createFeed: ' + feedName);
+    return fetch(this.url + 'feed', {
+      method: 'post',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({feedName: feedName})
+    }).then(response => {
+      console.log('createFeed response');
+      console.log(response);
+      return response.json();
+    });
+  }
 }
