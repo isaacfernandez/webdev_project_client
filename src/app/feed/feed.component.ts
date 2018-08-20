@@ -36,6 +36,7 @@ export class FeedComponent implements OnInit {
     feedFollows: []
   };
   posts = [{
+    _id: 0,
     postTitle: String,
     postLink: String
   }];
@@ -103,7 +104,27 @@ export class FeedComponent implements OnInit {
       });
   }
 
-  deletePost() {
+  deletePost(postId) {
+    if (this.feed.externalPosts.includes(postId)) {
+      this.feedService.deleteExternalPost(postId)
+        .then(response => {
+          if (response.error == null) {
+            alert('Post deleted successfully.');
+          } else {
+            alert(response.error);
+          }
+        });
+
+    } else {
+      this.feedService.deleteInternalPost(postId)
+        .then(response => {
+          if (response.error == null) {
+            alert('Post deleted successfully.');
+          } else {
+            alert(response.error);
+          }
+        });
+    }
   }
 
   createPost(title, link) {
@@ -159,7 +180,8 @@ export class FeedComponent implements OnInit {
     this.getFeedFollowersCount()
       .then(response => {
         if (response.error == null) {
-          this.feedFollowersCount = response;
+          console.log(response.length);
+          this.feedFollowersCount = response.length;
         }
       });
   }
