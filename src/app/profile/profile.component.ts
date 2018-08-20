@@ -28,8 +28,8 @@ export class ProfileComponent implements OnInit {
   update() {
     var update_obj = {
       'username': this.username,
-      'firstName': this.firstName || "Mike",
-      'lastName': this.lastName || "Hunt"
+      'firstName': this.firstName || "Simon",
+      'lastName': this.lastName || "Bolivar"
     }
     this.userService.loggedIn()
       .then(resp => {

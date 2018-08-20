@@ -10,6 +10,8 @@ export class UserListComponent implements OnInit {
 
   users = [];
   meId;
+  search = '';
+
 
   constructor(private service: UserService) {
     this.service.loggedIn()
@@ -33,6 +35,17 @@ export class UserListComponent implements OnInit {
         console.log(res)
       );
   }
+
+  newTerm() {
+    console.log('searching');
+    if (this.search === '') {
+      this.service.users()
+        .then(resp => this.users = resp);
+    } else {
+      this.service.searchUsers(this.search).then(res => {
+        this.users = res;
+      });
+    }};
 
   ngOnInit() {
   }
