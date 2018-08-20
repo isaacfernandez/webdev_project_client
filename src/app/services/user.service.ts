@@ -80,4 +80,10 @@ export class UserService {
       .then(response => response.json());
   }
 
+  logout() {
+    return fetch( this.url + 'logout', {
+      method: 'post',
+      credentials: 'include'
+    }).then(res => res.status);
+  }
 }

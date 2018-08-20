@@ -29,7 +29,8 @@ export class LoginRegisterComponent implements OnInit {
     this.userService.login(user)
       .then(response => {
         if (response.error == null) {
-          return this.router.navigate(['/profile']);
+          return this.router.navigate(['/profile'])
+            .then( res => window.location.reload())
         } else {
           alert('Failed to login. ' + response.error);
         }

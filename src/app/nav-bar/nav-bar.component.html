@@ -5,11 +5,18 @@
     </div>
     <ul class="nav navbar-nav">
       <li><a routerLink="/">Home</a></li>
-      <li><a routerLink="/login">Login</a></li>
-      <li [hidden]="!admin"><a routerLink="/admin">Admin</a></li>
-      <li><a routerLink="/profile">Profile</a></li>
       <li><a routerLink="/users">Users</a></li>
-
     </ul>
+    <ul [hidden]="loggedIn" class="nav navbar-nav">
+      <li><a routerLink="/login">Login</a></li>
+    </ul>
+    <ul [hidden]="!loggedIn" class="nav navbar-nav">
+      <li><a routerLink="/profile">Profile</a></li>
+      <li><a (click)="logout()">Logout</a></li>
+    </ul>
+    <ul [hidden]="!admin" class="nav navbar-nav">
+      <li><a routerLink="/admin">Admin</a></li>
+    </ul>
+    <div [hidden]="!loggedIn"class="pull-right">Welcome {{username}}!</div>
   </div>
 </nav>
