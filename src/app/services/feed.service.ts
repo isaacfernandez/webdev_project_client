@@ -241,7 +241,7 @@ export class FeedService {
         if (response.status === 200) {
           return;
         } else {
-          return {error: 'Failed to delete feed ' + postId};
+          return {error: 'Failed to delete feed ' + feedId};
         }
       });
   }
