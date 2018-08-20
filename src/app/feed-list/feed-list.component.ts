@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from "../services/user.service";
+import {UserService} from '../services/user.service';
+import {FeedService} from '../services/feed.service';
 
 @Component({
   selector: 'app-feed-list',
@@ -8,8 +9,41 @@ import {UserService} from "../services/user.service";
 })
 export class FeedListComponent implements OnInit {
 
-  constructor() {
+  constructor(private userService: UserService,
+              private feedService: FeedService) {
+  }
 
+  newName;
+  isLoggedIn = true;
+  isModerator = true;
+  currentUser = {
+    _id: 0,
+  feedFollows: []
+  };
+  feeds = [
+
+  ];
+  feedLimit = 10;
+
+
+  searchFeeds(query) {
+
+  }
+
+  createFeed() {
+
+  }
+
+  deleteFeed(feedId) {
+
+  }
+
+  followFeed(feedId) {
+
+  }
+
+  setFeeds() {
+    // return this.feedService.findFeedById(this.feedId);
   }
 
   ngOnInit() {

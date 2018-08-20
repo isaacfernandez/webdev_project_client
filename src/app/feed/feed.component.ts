@@ -23,7 +23,8 @@ export class FeedComponent implements OnInit {
   isModerator = true;
   isFollowing = true;
   currentUser = {
-    _id: 0
+    _id: 0,
+    role: ''
   };
   feedId;
   feed = {
@@ -37,22 +38,64 @@ export class FeedComponent implements OnInit {
     postTitle: String,
     postLink: String
   }];
+  postIds = [];
+  postLimit = 10;
 
   getFeed() {
     return this.feedService.findFeedById(this.feedId);
   }
 
   getCurrentUser() {
-    // this.userService.
-    // SET isLoggedIn and isModerator and isFollowing
-    return null;
+    return this.userService.loggedIn();
   }
 
-  setPostsByIds(postIds) {
-    this.posts = this.feedService.findPostsByIds(postIds);
+  getPostIds() {
+    let postIds = [];
+    return this.feedService.findInternalPostsByName(this.feed.feedName,
+      this.postLimit)
+      .then(ids => {
+        // console.log(ids);
+        // console.log(postIds);
+        postIds = postIds.concat(ids);
+        // console.log(postIds);
+        return postIds;
+      })
+      .then(() => {
+        // console.log(postIds);
+        return this.feedService.findExternalPostsByName(this.feed.feedName,
+          this.postLimit)
+          .then(ids => {
+            // console.log(ids);
+            // console.log(postIds);
+            postIds = postIds.concat(ids);
+            // console.log(postIds);
+            this.postIds = postIds;
+            return postIds;
+          });
+      });
+    // .then(ids => {
+    //   console.log(ids);
+    //   postIds.push(ids.);
+    //   console.log(postIds);
+    // });
+    // postIds.concat(this.feedService.findExternalPostsByName(this.feed.feedName,
+    //   this.postLimit));
+  }
+
+  getPosts(postIds) {
+    // console.log(postIds);
+    return this.feedService.findPostsByIds(postIds);
   }
 
   followFeed() {
+    this.feedService.followFeed(this.feed._id, this.currentUser._id)
+      .then(response => {
+        if (response.error == null) {
+          alert('Feed followed successfully.');
+        } else {
+          alert(response.error);
+        }
+      });
   }
 
   deletePost() {
@@ -62,7 +105,7 @@ export class FeedComponent implements OnInit {
     const post = {
       postTitle: title,
       postLink: link
-    }
+    };
     this.feedService.createPostForFeed(this.feed._id, post)
       .then(response => {
         if (response.error == null) {
@@ -78,15 +121,35 @@ export class FeedComponent implements OnInit {
       .then(response => {
         if (response.error == null) {
           this.feed = response;
-          console.log(this.feed);
+          // console.log(this.feed);
+          this.getPostIds()
+            .then((ids) => {
+              this.postIds = ids;
+              // console.log(ids);
+              this.posts = this.getPosts(ids);
+            });
         } else {
           alert(response.error);
         }
-      })
-      .then(() => {
-        this.setPostsByIds(this.feed.externalPosts);
       });
-    // this.getCurrentUser()
-    //   .then(response => this.currentUser = response);
+    this.getCurrentUser()
+      .then(response => {
+        if (response.error == null) {
+          this.currentUser = response;
+          this.isLoggedIn = true;
+          this.isModerator = (this.currentUser.role !== 'USER');
+          // this.isFollowing = false;
+        } else {
+          this.currentUser = null;
+          this.isLoggedIn = false;
+          this.isModerator = false;
+          this.isFollowing = false;
+        }
+
+        console.log(this.currentUser);
+        console.log(this.isLoggedIn);
+        console.log(this.isModerator);
+        console.log(this.isFollowing);
+      });
   }
 }

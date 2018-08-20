@@ -10,7 +10,7 @@ export class FeedService {
   }
 
   findFeedById(feedId) {
-    console.log(feedId);
+    // console.log(feedId);
     return fetch(this.url + 'feed/' + feedId, {
       method: 'get',
       credentials: 'include',
@@ -46,13 +46,14 @@ export class FeedService {
 
   findPostsByIds(postIds) {
     const posts = [];
+    // console.log(postIds);
     postIds.forEach(id => {
       this.findPostById(id)
         .then(post => {
           posts.push(post);
         });
-      ;
     });
+    // console.log(posts);
     return posts;
   }
 
@@ -70,6 +71,61 @@ export class FeedService {
           return response.json();
         } else {
           return {error: 'Post submission failed.'};
+        }
+      });
+  }
+
+  findInternalPostsByName(feedName, postLimit) {
+    return fetch(this.url + 'feed/' + feedName + '/internal/' + postLimit, {
+      method: 'get',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (response.status === 200) {
+          // console.log(response);
+          // console.log(response.json());
+          return response.json();
+        } else {
+          return {error: 'Failed to find internal posts for feed ' + feedName};
+        }
+      });
+  }
+
+  findExternalPostsByName(feedName, postLimit) {
+    return fetch(this.url + 'feed/' + feedName + '/external/' + postLimit, {
+      method: 'get',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
+      .then(response => {
+        if (response.status === 200) {
+          // console.log(response);
+          // console.log(response.json());
+          return response.json();
+        } else {
+          return {error: 'Failed to find external posts for feed ' + feedName};
+        }
+      });
+  }
+
+  followFeed(feedId, userId) {
+    return fetch(this.url + 'feed/' + feedId + '/follows/' + userId, {
+      method: 'post',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return {error: 'Failed to follow feed.'};
         }
       });
   }
