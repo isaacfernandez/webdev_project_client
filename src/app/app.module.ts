@@ -14,6 +14,7 @@ import { LoginRegisterComponent } from './login-register/login-register.componen
 import { ProfileComponent } from './profile/profile.component';
 import {routing} from './app.routing';
 import {UserService} from './services/user.service';
+import { AdminComponent } from './admin/admin.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {UserService} from './services/user.service';
     NavBarComponent,
     HomeComponent,
     ProfileComponent,
-    LoginRegisterComponent
+    LoginRegisterComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

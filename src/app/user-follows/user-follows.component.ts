@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../services/user.service";
 import {ProfileService} from "../services/profile.service";
+import {post} from "../../../node_modules/@types/selenium-webdriver/http";
 
 @Component({
   selector: 'app-follows-list',
@@ -29,13 +30,18 @@ export class UserFollowsComponent implements OnInit {
               this.userIdToUser(ret[u].followed);
             }
             console.log(this.users);
+          })
+          .then(res => {
+            for (var i = 0; i < this.users.length; i++) {
+              this.users[i].lastPost = this.getLastUserPost(this.users[i]._id);
+            }
           });
       })
   }
 
   userIdToUser(id) {
     console.log(id);
-    this.profileService.profileById(id).then( res => this.users.push(res));
+    this.profileService.profileById(id).then(res => this.users.push(res));
   }
 
   unfollowUser(id) {
@@ -47,7 +53,9 @@ export class UserFollowsComponent implements OnInit {
             for (var u in ret) {
               this.userIdToUser(ret[u].followed);
             }
-            console.log(this.users);
+            for (var i = 0; i < this.users.length; i++) {
+              this.users[i].post = this.getLastUserPost(this.users[i]);
+            }
           });
       })
   }
@@ -55,4 +63,13 @@ export class UserFollowsComponent implements OnInit {
   ngOnInit() {
   }
 
-}
+  private getLastUserPost(user) {
+    var _id = user._ud;
+    return this.service.getLastPost(_id).then(res => {
+      console.log(res);
+      return res
+    }).then(posts => {
+      if (posts.length == 0) return null;
+      return posts[0];
+    });
+  }

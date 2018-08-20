@@ -81,9 +81,36 @@ export class UserService {
   }
 
   logout() {
-    return fetch( this.url + 'logout', {
+    return fetch(this.url + 'logout', {
       method: 'post',
       credentials: 'include'
     }).then(res => res.status);
+  }
+
+  deleteUser(id) {
+    return fetch(this.url + 'user/' + id, {
+      method: 'delete',
+      credentials: 'include'
+    }).then(res => res.status);
+  }
+
+  updateUser(user: any, id) {
+    return fetch(this.url + 'user/' + id, {
+      method: 'put',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+  }
+
+  getLastPost(id: any) {
+    return fetch(this.url + '/post/user/' + id, {
+      method: 'put',
+      credentials: 'include',
+    }).then( res => {
+      return res.json()
+    });
   }
 }

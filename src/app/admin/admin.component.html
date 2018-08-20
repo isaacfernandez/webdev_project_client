@@ -1,0 +1,13 @@
+<h2>Administrator Page</h2>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let user of users">
+    <a class="col-1" routerLink="/profile/{{user.followed}}">{{user.username}}</a>
+    <button (click)="updateUser(user)" class=" col-1 btn pull-right btn-warning">Update</button>
+    <button (click)="deleteUser(user._id)" class=" col-1 btn pull-right btn-danger">Delete</button>
+    <select name='role' [(ngModel)]="user.role"  class="col-1 btn pull-right btn-info ">
+      <option>USER</option>
+      <option>MODERATOR</option>
+      <option>ADMIN</option>
+    </select>
+  </li>
+</ul>

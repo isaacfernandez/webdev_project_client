@@ -4,11 +4,13 @@ import {ProfileComponent} from './profile/profile.component';
 import {LoginRegisterComponent} from './login-register/login-register.component';
 import {FeedComponent} from './feed/feed.component';
 import {UserListComponent} from "./user-list/user-list.component";
+import {AdminComponent} from "./admin/admin.component";
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'profile', component: ProfileComponent},
+  {path: 'admin', component: AdminComponent},
   {path: 'profile/:userId', component: ProfileComponent},
   {path: 'login', component: LoginRegisterComponent},
   {path: 'feed/:feedId', component: FeedComponent},
