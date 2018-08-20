@@ -12,6 +12,8 @@ export class NavBarComponent implements OnInit {
   constructor(private service: UserService,
               private router: Router,
               private route: ActivatedRoute) {
+    this.route.params.subscribe(
+      params => this.setParams(params));
   }
 
   loggedIn = false;
@@ -33,11 +35,10 @@ export class NavBarComponent implements OnInit {
   logout() {
     this.service.logout()
       .then(res => this.router.navigate(['/login']))
+      .then( res => window.location.reload())
   }
 
   ngOnInit() {
-    this.route.params.subscribe(
-      params => this.setParams(params));
   }
 
 }
