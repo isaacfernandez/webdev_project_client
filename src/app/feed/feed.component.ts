@@ -109,24 +109,24 @@ export class FeedComponent implements OnInit {
     if (this.feed.externalPosts.includes(postId)) {
       this.feedService.deleteExternalPost(postId)
         .then(response => {
-          if (response.error == null) {
+          if (response.ok) {
             alert('Post deleted successfully.');
           } else {
-            alert(response.error);
+            alert('Post delete failed.');
           }
         })
-        .then(this.populatePosts);
+        .then(() => this.populatePosts());
 
     } else {
       this.feedService.deleteInternalPost(postId)
         .then(response => {
-          if (response.error == null) {
+          if (response.ok) {
             alert('Post deleted successfully.');
           } else {
-            alert(response.error);
+            alert('Post delete failed.');
           }
         })
-        .then(this.populatePosts);
+        .then(() => this.populatePosts());
     }
   }
 
@@ -143,10 +143,10 @@ export class FeedComponent implements OnInit {
           alert(response.error);
         }
       })
-      .then(this.populatePosts);
+      .then(() => this.populatePosts());
   }
 
-  populatePosts() {
+  populatePosts = () => {
     this.getFeed()
       .then(response => {
         if (response.error == null) {
@@ -162,7 +162,7 @@ export class FeedComponent implements OnInit {
           alert(response.error);
         }
       });
-  }
+  };
 
   ngOnInit() {
     this.populatePosts();

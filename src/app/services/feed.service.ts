@@ -169,11 +169,7 @@ export class FeedService {
       },
     })
       .then(response => {
-        if (response.status === 200) {
-          return;
-        } else {
-          return {error: 'Failed delete internal post ' + postId};
-        }
+        return response;
       });
   }
 
@@ -186,11 +182,7 @@ export class FeedService {
       },
     })
       .then(response => {
-        if (response.status === 200) {
-          return;
-        } else {
-          return {error: 'Failed delete internal post ' + postId};
-        }
+        return response;
       });
   }
 
