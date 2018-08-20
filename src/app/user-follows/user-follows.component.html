@@ -4,8 +4,8 @@
   <ul class="list-group">
     <li class="list-group-item" *ngFor="let user of users">
       <a class="col-1" routerLink="/profile/{{user.followed}}">{{user.username}}</a>
-      <span class="col-1"> {{user.post}}</span>
-      <button (click)="unfollowUser(user._id)" class=" col-1 pull-right btn-danger">Unfollow</button>
+      Last Post: <span class="col-1"> {{user.postTitle}}  ...  {{user.postLink}} </span>
+      <button (click)="unfollowUser(user._id)" class=" col-1 pull-right btn-danger">Delete</button>
     </li>
   </ul>
 </div>

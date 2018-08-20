@@ -25,12 +25,12 @@ export class UserFollowsComponent implements OnInit {
         this.myId = selfId;
         this.service.getFollowedUsers(selfId)
           .then(ret => {
-            console.log(ret);
             for (var u in ret) {
               this.userIdToUser(ret[u].followed);
             }
-            console.log(this.users);
-          })
+          }).then(cont => {
+          console.log(this.users);
+        })
           .then(res => {
             for (var i = 0; i < this.users.length; i++) {
               this.users[i].lastPost = this.getLastUserPost(this.users[i]._id);
@@ -40,8 +40,23 @@ export class UserFollowsComponent implements OnInit {
   }
 
   userIdToUser(id) {
-    console.log(id);
-    this.profileService.profileById(id).then(res => this.users.push(res));
+    let olduser;
+    this.profileService.profileById(id).then(res => {
+      olduser = res;
+      return this.getLastUserPost(res);
+    })
+      .then(post => {
+        if (post !== null) {
+          olduser.postTitle = post.postTitle;
+          olduser.postLink = post.postLink;
+        } else {
+          olduser.postTitle = 'No recent posts';
+          olduser.postLink = 'Lame, right?';
+        }
+        this.users.push(olduser);
+        console.log(olduser);
+      });
+
   }
 
   unfollowUser(id) {
@@ -49,12 +64,8 @@ export class UserFollowsComponent implements OnInit {
       .then(res => {
         this.service.getFollowedUsers(this.myId)
           .then(ret => {
-            console.log(ret);
             for (var u in ret) {
               this.userIdToUser(ret[u].followed);
-            }
-            for (var i = 0; i < this.users.length; i++) {
-              this.users[i].post = this.getLastUserPost(this.users[i]);
             }
           });
       });
@@ -63,13 +74,15 @@ export class UserFollowsComponent implements OnInit {
   ngOnInit() {
   }
 
-  private getLastUserPost(user) {
-    var _id = user._ud;
+  getLastUserPost(user) {
+    var _id = user._id;
     return this.service.getLastPost(_id).then(res => {
       console.log(res);
       return res;
     }).then(posts => {
+      console.log(posts);
       if (posts.length == 0) return null;
+      console.log('returning a post!');
       return posts[0];
     });
   }
