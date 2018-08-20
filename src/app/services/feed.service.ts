@@ -248,6 +248,7 @@ export class FeedService {
       }
     })
       .then(response => {
+          console.log(response);
           return response.json();
         }
       );

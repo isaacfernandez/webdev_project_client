@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {ProfileService} from "../services/profile.service";
-import {UserService} from "../services/user.service";
+import {ActivatedRoute} from '@angular/router';
+import {ProfileService} from '../services/profile.service';
+import {UserService} from '../services/user.service';
+import {FeedService} from '../services/feed.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,56 +14,83 @@ export class ProfileComponent implements OnInit {
   constructor(
     private service: ProfileService,
     private userService: UserService,
+    private feedService: FeedService,
     private route: ActivatedRoute) {
     this.route.params.subscribe(
       params => this.setParams(params));
-
   }
 
-  username;
-  firstName;
-  lastName;
-  id;
-  dateOfBirth: Date;
+  currentUser = {
+    _id: 0,
+    username: String,
+    firstName: String,
+    lastName: String
+  };
+
+  userPage = {
+    username: String,
+    firstName: String,
+    lastName: String,
+    userFollowers: [],
+    _id: 0
+  };
+
+  followers = [];
+
+  // username;
+  // firstName;
+  // lastName;
+  // userId = undefined;
+  // dateOfBirth: Date;
 
   update() {
-    var update_obj = {
-      'username': this.username,
-      'firstName': this.firstName || "Simon",
-      'lastName': this.lastName || "Bolivar"
-    }
+    const update_obj = {
+      'username': this.userPage.username,
+      'firstName': this.userPage.firstName || 'Simon',
+      'lastName': this.userPage.lastName || 'Bolivar'
+    };
     this.userService.loggedIn()
       .then(resp => {
         if (resp._id !== undefined) {
           return resp._id;
         }
       }).then( id => {
-        console.log(id);
+        // console.log(id);
         this.userService.updateUser(update_obj, id);
     });
   }
 
   setParams(params) {
-    this.id = params['userId'];
-    if (this.id !== undefined) {
-      this.service.profileById(this.id)
+    this.userPage._id = params['userId'];
+    if (this.userPage._id !== undefined) {
+      this.service.profileById(this.userPage._id)
         .then(resp => {
-          this.username = resp.username;
-          this.firstName = resp.firstName;
+          this.userPage = resp;
+          console.log(this.userPage);
+          // this.userPage.userId = resp._id;
+          // this.userPage.username = resp.username;
+          // this.userPage.firstName = resp.firstName;
+          // this.userPage.followerIds = [];
         });
     } else {
       this.service.profile()
         .then(resp => {
-          this.username = resp.username;
-          this.firstName = resp.firstName;
-          this.lastName = resp.lastName;
-          this.dateOfBirth = resp.dateOfBirth;
-        })
+          this.userPage = resp;
+        });
     }
   }
 
-  ngOnInit() {
+  getCurrentUser() {
+    return this.userService.loggedIn();
+  }
 
+  ngOnInit() {
+    this.getCurrentUser()
+      .then(response => {
+        if (response.error == null) {
+          this.currentUser = response;
+        }
+      });
   }
 
 }

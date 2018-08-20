@@ -95,10 +95,15 @@ export class FeedComponent implements OnInit {
   }
 
   isUserFollowingFeed() {
-    return this.feedService.isUserFollowingFeed(this.currentUser._id, this.feedId)
+    this.feedService.isUserFollowingFeed(this.currentUser._id, this.feedId)
       .then(response => {
         console.log(response);
-        this.isFollowing = response;
+        if (response.error == null) {
+          this.isFollowing = true;
+          console.log(this.isFollowing);
+        } else {
+          alert(response.error);
+        }
       });
   }
 

@@ -37,7 +37,15 @@ export class UserService {
       method: 'get',
       credentials: 'include'
     })
-      .then(response => response.json())
+      .then(response => response.json());
+  }
+
+  getFollowingUsers = (id) => {
+    return fetch(this.url + 'user/' + id + '/followers/20', {
+      method: 'get',
+      credentials: 'include'
+    })
+      .then(response => response.json());
   }
 
   followUser = (ourId, targetId) => {
