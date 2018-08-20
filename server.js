@@ -16,6 +16,6 @@ app.use(express.static('./dist/webdev-project-client'));
 // });
 
 app.get('/*', function (req, res) {
-  res.sendFile(path.join('./dist/webdev-project-client/index.html'));
+  res.sendFile('./dist/webdev-project-client/index.html', {'root': __dirname});
 });
 app.listen(process.env.PORT || 4200);
