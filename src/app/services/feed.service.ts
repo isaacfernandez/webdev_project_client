@@ -253,4 +253,17 @@ export class FeedService {
         }
       );
   }
+
+  //https://guarded-forest-81137.herokuapp.com/api/user/5b7a7db8ba5fe2001429cbdc/feed-follows/1
+  userFeedFollows(userId) {
+    return fetch(this.url + 'user/' + userId + '/feed-follows/' + 20, {
+      method: 'get',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      }})
+      .then(response => {
+        return response.json();
+      });
+  }
 }
