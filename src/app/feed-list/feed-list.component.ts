@@ -14,28 +14,32 @@ export class FeedListComponent implements OnInit {
   }
 
   feedName;
-  feedSearch;
+  feedSearch = '';
+  searchCalled = false;
   userId = '';
   username = '';
+  followed = [];
   isLoggedIn = true;
   isElevated = false;
 
-  newName;
-
-  currentUser = {
-    _id: 0,
-  feedFollows: []
-  };
   feeds = [
   ];
   feedLimit = '10';
 
   getFeeds() {
     this.feedService.findFeeds(this.feedLimit)
+      .then( preproc => {
+        if (this.userId === '' || this.searchCalled === true) {
+          return preproc;
+        } else {
+          return preproc.filter(feed => this.followed.indexOf(feed._id) > -1);
+        }
+      })
       .then(feeds => this.feeds = feeds);
   }
 
   searchFeeds() {
+    this.searchCalled = true;
     if (this.feedSearch.length !== 0) {
       this.feedService.findFeedsByName(this.feedSearch)
         .then(feeds => this.feeds = feeds);
@@ -49,8 +53,6 @@ export class FeedListComponent implements OnInit {
     console.log(this.feedName);
     this.feedService.createFeed(this.feedName)
       .then(feed => {
-        console.log('hi');
-        console.log(feed);
         this.feeds.push(feed);
       });
   }
@@ -69,10 +71,6 @@ export class FeedListComponent implements OnInit {
       .then(response => {alert('Successfully followed feed')});
   }
 
-  setFeeds() {
-    // return this.feedService.findFeedById(this.feedId);
-  }
-
   ngOnInit() {
     this.getFeeds();
     this.userService.loggedIn()
@@ -84,8 +82,20 @@ export class FeedListComponent implements OnInit {
           console.log(resp);
           this.isElevated = (resp.role === 'MODERATOR' || resp.role === 'ADMIN');
           this.userId = resp._id;
+          return this.userId;
         }
-      });
+      })
+      .then( id => {
+        return this.feedService.userFeedFollows(id);
+      })
+      .then( feedFollows => {
+        for (var ff in feedFollows) {
+          this.followed.push( feedFollows[ff].feed);
+        }
+        return this.followed;
+      }).then( we => {
+      this.getFeeds()
+    });
   }
 
 }
