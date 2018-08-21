@@ -11,6 +11,8 @@ export class AdminComponent implements OnInit {
     this.reloadUsers();
   }
 
+  newUser = {};
+  
   currentUser = {
     role: ''
   };
@@ -21,10 +23,28 @@ export class AdminComponent implements OnInit {
       .then( res => this.reloadUsers());
   }
 
+  createUser(newUser) {
+    console.log(newUser);
+    this.service.createUser(newUser)
+      .then(res => {
+        if (res.error == null) {
+          this.users.push(res);
+        } else {
+          alert(res.error);
+        }
+      })
+  }
+
   updateUser(modifiedUser) {
-    var user = {role : modifiedUser.role}
+    var user = {
+      role: modifiedUser.role,
+      firstName: modifiedUser.firstName,
+      lastName: modifiedUser.lastName,
+      dateOfBirth: modifiedUser.dateOfBirth,
+      password: modifiedUser.password
+    }
     this.service.updateUser(user, modifiedUser._id)
-      .then( res => this.reloadUsers());
+      .then(res => this.reloadUsers());
   }
 
 

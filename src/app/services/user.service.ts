@@ -65,6 +65,17 @@ export class UserService {
       .then(response => response.json())
   }
 
+  createUser = (user) => {
+    return fetch(this.url + 'user/createUser', {
+      method: 'post',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    }).then(response => response.json());
+  }
+
   register = (user) => {
     return fetch(this.url + 'register', {
       method: 'post',

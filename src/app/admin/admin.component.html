@@ -1,27 +1,105 @@
 <h2>Administrator Page</h2>
-<ul class="list-group">
-  <li class="list-group-item" *ngFor="let user of users">
-    <a class="col-1" routerLink="/profile/{{user._id}}">{{user.username}}</a>
-    <button (click)="updateUser(user)"
-            class=" col-1 btn pull-right btn-warning">
-      Update
-    </button>
-    <button (click)="deleteUser(user._id)"
-            class=" col-1 btn pull-right btn-danger">
-      Delete
-    </button>
-    <select name='role'
-            [(ngModel)]="user.role"
-            class="col-1 btn pull-right btn-info">
-      <option value="USER">
-        User
-      </option>
-      <option value="MODERATOR">
-        Moderator
-      </option>
-      <option value="ADMIN">
-        Admin
-      </option>
-    </select>
-  </li>
-</ul>
+
+<table class="table table-striped table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Link</th>
+      <th>Username</th>
+      <th>Password</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Date of Birth</th>
+      <th>Role</th>
+      <th></th>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input
+        name="newUsername"
+        [(ngModel)]="newUser.username"
+        class="form-control"
+        placeholder="new username"/></td>
+      <td><input
+        name="newPassword"
+        [(ngModel)]="newUser.password"
+        class="form-control"
+        placeholder="new password"/></td>
+      <td><input
+        name="newFirstName"
+        [(ngModel)]="newUser.firstName"
+        class="form-control"
+        placeholder="new first name"/></td>
+      <td><input
+        name="newLastName"
+        [(ngModel)]="newUser.lastName"
+        class="form-control"
+        placeholder="new last name"/></td>
+      <td><input
+        name="newDateOfBirth"
+        [(ngModel)]="newUser.dateOfBirth"
+        class="form-control"
+        placeholder="date of birth"
+        type="date"/></td>
+      <td><select
+        name="newRole"
+        [(ngModel)]="newUser.role"
+        class="form-control btn btn-info">
+        <option value="USER">User</option>
+        <option value="MODERATOR">Moderator</option>
+        <option value="ADMIN">Admin</option>
+      </select></td>
+      <td><button
+        class="btn btn-success"
+        (click)="createUser(newUser)">
+        Create User
+      </button></td>
+    </tr>
+  </thead>
+  <tbody>
+   <tr *ngFor="let user of users">
+     <td><a routerLink="/profile/{{user._id}}">{{user.username}}</a></td>
+     <td><input
+       [(ngModel)]="user.username"
+       placeholder="username"
+       class="form-control"
+       readonly/></td>
+     <td><input
+       [(ngModel)]="user.password"
+       placeholder="Password"
+       class="form-control"/></td>
+     <td><input
+       [(ngModel)]="user.firstName"
+       placeholder="First Name"
+       class="form-control"/></td>
+     <td><input
+       [(ngModel)]="user.lastName"
+       placeholder="Last Name"
+       class="form-control"/></td>
+     <td><input
+       [(ngModel)]="user.dateOfBirth"
+       class="form-control"
+       placeholder="Date of Birth"
+       type="date"/></td>
+     <td><select
+        [(ngModel)]="user.role"
+        class="form-control btn btn-info">
+        <option value="USER">User</option>
+        <option value="MODERATOR">Moderator</option>
+        <option value="ADMIN">Admin</option>
+     </select></td>
+     <td><span>
+       <button
+         (click)="updateUser(user)"
+         class="btn btn-warning">
+         Update
+       </button>
+       <button
+         (click)="deleteUser(user._id)"
+         class="btn btn-danger">
+         Delete
+       </button>
+     </span></td>
+   </tr>
+  </tbody>
+</table>
+
